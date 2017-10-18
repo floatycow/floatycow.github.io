@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="moblie-web-app-capable" content="yes">
 
-	<title>FlappyJS</title>
+	<title>Floaty cow</title>
 
 	<script src="sprite.js"></script>
 
@@ -266,6 +266,7 @@
 			ctx.fillRect(0, 0, width, height);
 			s_bg.draw(ctx, 0, height - s_bg.height);
 			s_bg.draw(ctx, s_bg.width, height - s_bg.height);
+			s_moon.draw(ctx, 10, 10);
 			
 			pipes.draw(ctx);
 			bird.draw(ctx);

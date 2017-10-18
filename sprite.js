@@ -27,16 +27,19 @@ Sprite.prototype.draw = function(ctx, x, y) {
 
 function initSprites(img) {
 
+
 	s_bird = [
 		new Sprite(img, 156, 115, 17, 12),
 		new Sprite(img, 156, 128, 17, 12),
 		new Sprite(img, 156, 141, 17, 12)
 	];
 	
-	s_bg = new Sprite(img,   0, 0, 138, 114);
+	s_bg = new Sprite(img, 0, 0, 138, 114);//276, 228
 	s_bg.color = "#191970";
 	s_fg = new Sprite(img, 138, 0, 112,  56);
 	
+	s_moon = new Sprite(img, 214, 166, 37, 39); //427, 331
+
 	s_pipeNorth = new Sprite(img, 251, 0, 26, 200);
 	s_pipeSouth = new Sprite(img, 277, 0, 26, 200);
 	
