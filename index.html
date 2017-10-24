@@ -26,7 +26,7 @@
 <body>
 	<h2>Floaty cow BETA</h2>
 	<h> Check out the mining pro on <a href="https://www.youtube.com/channel/UCQWRi6Qz5Rw1fnIOQg2E2yQ?&ab_channel=theminingpro" target="_blank"><font color = "#0000ff">YouTube</font></a>!</h>
-	<h2> Known issues: </h2><h> Moblile platforms' "ok" button don't work | Can fly offscreen to win</h>
+	<h2> Known issues: </h2><h>Mobile button problem</h>
 	<h4>Notify me at 19genge@southcentralusd.us for any other bugs you may find.</h4>
 		<script>
 
@@ -84,13 +84,17 @@
 						}
 						this.velocity = this._jump;
 					}
+					if (this.y <= 0) {
+						if (currentstate === states.Game){
+							currentstate = states.Score
+						}
+					}
 
 					if (this.velocity >= this._jump) {
 						this.frame = 1;
 						this.rotation = Math.min(Math.PI/2, this.rotation + 0.2);
 					} else {
 						this.rotation = -0.2;
-						
 					}
 				}
 
@@ -182,10 +186,15 @@
 					bird.jump();
 					break;
 
-				case states.Score:
+				 case states.Score:
+					var mx = evt.offsetX, my = evt.offsetY;
+
+					if (okbtn.x < mx && mx < okbtn.x + okbtn.width &&
+						okbtn.y < my && my < okbtn.y + okbtn.height) {
 						pipes.reset();
 						currentstate = states.Splash;
 						score = 0;
+					}
 					break;
 
 			}
