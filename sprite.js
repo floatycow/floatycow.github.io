@@ -40,6 +40,10 @@ function initSprites(img) {
 	
 	s_moon = new Sprite(img, 214, 166, 37, 39); //427, 331
 
+	s_silver = new Sprite(img, 198, 114, 22, 22);
+	s_gold = new Sprite(img, 174, 137, 22, 22);
+	
+
 	s_pipeNorth = new Sprite(img, 251, 0, 26, 200);
 	s_pipeSouth = new Sprite(img, 277, 0, 26, 200);
 	
