@@ -273,12 +273,17 @@
 			s_bg.draw(ctx, 0, height - s_bg.height);
 			s_bg.draw(ctx, s_bg.width, height - s_bg.height);
 			s_moon.draw(ctx, 10, 10);
+			
 			if(score >= 5) {
-				s_silver.draw(ctx, 25, 28);
+				s_bronze.draw(ctx, 25, 28);
 			}
 			if(score >= 10) {
+				s_silver.draw(ctx, 25, 28);
+			}
+			if(score >= 15) {
 				s_gold.draw(ctx, 25, 28);
 			}
+
 			pipes.draw(ctx);
 			bird.draw(ctx);
 			
@@ -295,9 +300,21 @@
 				s_text.GameOver.draw(ctx, width2 - s_text.GameOver.width/2, height-400);
 				s_score.draw(ctx, width2 - s_score.width/2, height-340);
 				s_buttons.Ok.draw(ctx, okbtn.x, okbtn.y);
+				if(score >= 5){
+					s_bronze.draw(ctx, (s_score.width/2)-40, (height/2)-59);
+				}
+				if(score >= 10) {
+					s_silver.draw(ctx, (s_score.width/2)-40, (height/2)-59);
+				}
+				if(score >= 15) {
+					s_gold.draw(ctx, (s_score.width/2)-40, (height/2)-59);
+				}				
 
 				s_numberS.draw(ctx, width2-47, height-304, score, null, 10);
 				s_numberS.draw(ctx, width2-47, height-262, best, null, 10);
+				if (score >= best) {
+					s_new.draw(ctx, width2+20, (height/2)-42);
+				}
 			} else {
 				s_numberB.draw(ctx, null, 20, score, width2);
 			}
