@@ -28,7 +28,8 @@
 	<h5>Notify me at 19genge@southcentralusd.us for any other bugs you may find.</h5>
 	<div> Check out the mining pro on <a href="https://www.youtube.com/channel/UCQWRi6Qz5Rw1fnIOQg2E2yQ?&ab_channel=theminingpro" target="_blank"><font color = "#ff0000">YouTube</font></a>!</div>
 	<div>Check out <a href="https://ifunny.co/dankcheesecakememes" target="_blank"><font color = "#FC0">DankCheesecakeMemes</font></a> on Ifunny!</div>
-	<h2> Known issues: </h2><h>Mobile button and "new" and medals don't work</h>
+	<h2> Known issues: </h2>
+	<h>Mobile button doesn't work</h>
 		<script>
 
 		var
@@ -190,8 +191,7 @@
 				 case states.Score:
 					var mx = evt.offsetX, my = evt.offsetY;
 
-					if (okbtn.x < mx && mx < okbtn.x + okbtn.width &&
-						okbtn.y < my && my < okbtn.y + okbtn.height) {
+					if (okbtn.x < mx && mx < okbtn.x + okbtn.width && okbtn.y < my && my < okbtn.y + okbtn.height) {
 						pipes.reset();
 						currentstate = states.Splash;
 						score = 0;
@@ -300,20 +300,22 @@
 				s_text.GameOver.draw(ctx, width2 - s_text.GameOver.width/2, height-400);
 				s_score.draw(ctx, width2 - s_score.width/2, height-340);
 				s_buttons.Ok.draw(ctx, okbtn.x, okbtn.y);
-				if(score >= 5){
-					s_bronze.draw(ctx, (s_score.width/2)-40, (height/2)-59);
+				
+				if(score >= 5) {
+					s_bronze.draw(ctx, width2-87, height-297);
 				}
 				if(score >= 10) {
-					s_silver.draw(ctx, (s_score.width/2)-40, (height/2)-59);
+					s_silver.draw(ctx, width2-87, height-297);
 				}
 				if(score >= 15) {
-					s_gold.draw(ctx, (s_score.width/2)-40, (height/2)-59);
+					s_gold.draw(ctx, width2-87, height-297);
 				}				
 
 				s_numberS.draw(ctx, width2-47, height-304, score, null, 10);
 				s_numberS.draw(ctx, width2-47, height-262, best, null, 10);
+				
 				if (score >= best) {
-					s_new.draw(ctx, s_score.width-44, s_score.height+82);
+					s_new.draw(ctx, width2+22, height-282);
 				}
 			} else {
 				s_numberB.draw(ctx, null, 20, score, width2);
