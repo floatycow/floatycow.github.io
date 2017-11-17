@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="moblie-web-app-capable" content="yes">
 
-	<title>Floaty cow</title>
+	<title>Floaty Cow</title>
 
 	<script src="sprite.js"></script>
 
@@ -24,12 +24,12 @@
 	</style>
 </head>
 <body>
-	<h1>Floaty cow BETA</h1>
-	<h5>Notify me at 19genge@southcentralusd.us for any other bugs you may find.</h5>
+	<h1>Floaty Cow</h1>
+	<h5>Notify me at 19genge@southcentralusd.us for bugs or suggestions.</h5>
 	<div> Check out the mining pro on <a href="https://www.youtube.com/channel/UCQWRi6Qz5Rw1fnIOQg2E2yQ?&ab_channel=theminingpro" target="_blank"><font color = "#ff0000">YouTube</font></a>!</div>
 	<div>Check out <a href="https://ifunny.co/dankcheesecakememes" target="_blank"><font color = "#FC0">DankCheesecakeMemes</font></a> on Ifunny!</div>
 	<h2> Known issues: </h2>
-	<h>Mobile button doesn't work</h>
+	<h>No known problems at this time</h>
 		<script>
 
 		var //test
@@ -194,6 +194,13 @@
 					if (okbtn.x < mx && mx < okbtn.x + okbtn.width && okbtn.y < my && my < okbtn.y + okbtn.height) {
 						pipes.reset();
 						currentstate = states.Splash;
+						score = 0;
+					}
+					if (score >= 1) {
+						score -= 1;
+					} else {
+						currentstate = states.Splash;
+						pipes.reset();
 						score = 0;
 					}
 					break;
