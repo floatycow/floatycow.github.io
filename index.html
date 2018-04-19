@@ -26,7 +26,7 @@
 <body>
 		<script>
 
-		var //test
+		var
 
 		canvas,
 		ctx,
@@ -34,10 +34,27 @@
 		height,
 		okbtn,
 
+		_x = -200,
+		_y = 0,
+		powery = 0, 
+		randnum = 0,
+		randnum1 = 0,
+		randnum2 = 0,
+		powerspawn = 0,
+		invpower = 0,
+		invpowermini = 0,
+		gamespeed = 100,
+		timevar = 0,
+		
+
 		fgpos = 0,
 		frames = 0,
 		score = 0,
 		best = 0,
+
+		invincibility = 0,
+		shield = 0,
+		time = 0,
 
 		currentstate,
 		states = {
@@ -117,14 +134,14 @@
 			},
 
 			update: function() {
-				if (frames % 100 === 0) {
-					var _y = height - (s_pipeSouth.height+s_fg.height+120+200*Math.random());
+				if (frames % gamespeed === 0) {
+					_y = height - (s_pipeSouth.height+s_fg.height+120+(200*Math.random()));
 					this._pipes.push({
 						x:500,
 						y:_y,
 						width: s_pipeSouth.width,
 						height: s_pipeSouth.height
-					});
+					})
 				}
 				for (var i = 0, len = this._pipes.length; i < len; i++) {
 					var p = this._pipes[i];
@@ -132,6 +149,14 @@
 					if (i === 0) {
 
 						score += p.x === bird.x ? 1 : 0;
+						if(powerspawn === 0){
+							randnum = p.x === bird.x ? Math.random()*10 : 0;
+							powery = _y;
+							_x = 300;
+						}
+						if(time === 1){
+							timevar += p.x === bird.x ? 1 : 0;
+						}
 
 						var cx  = Math.min(Math.max(bird.x, p.x), p.x+p.width);
 						var cy1 = Math.min(Math.max(bird.y, p.y), p.y+p.height);
@@ -147,7 +172,28 @@
 						var r = bird.radius*bird.radius;
 
 						if (r > d1 || r > d2) {
-								currentstate = states.Score;
+							if(invincibility === 1){
+								if(invpower > 0){
+									invpower -= p.x === bird.x ? 1 : 0;
+								}
+							}
+							if(shield === 1){
+								if(invpower > 0){
+									invpower -= p.x === bird.x ? 1 : 0;
+								}
+							}
+							if(invpowermini <= 0){
+								if(invpower === 0){
+									currentstate = states.Score
+								}
+							}
+							if(invincibility === 0){
+								if(shield === 0){
+									if(time === 0){
+										powerspawn = 0
+									}
+								}
+							}
 						}
 					}
 
@@ -166,9 +212,11 @@
 					var p = this._pipes[i];
 					s_pipeSouth.draw(ctx, p.x, p.y);
 					s_pipeNorth.draw(ctx, p.x, p.y+80+p.height);
+					
 				}
-			},
+			}
 		};
+
 
 		function onpress(evt) {
 			switch (currentstate) {
@@ -189,6 +237,12 @@
 						pipes.reset();
 						currentstate = states.Splash;
 						score = 0;
+						powerspawn = 0;
+						randnum = 0;
+						randnum1 = 0;
+						invincibility = 0;
+						shield = 0; 
+						time = 0;
 					}
 					if (score >= 5) {
 						score -= 5;
@@ -199,6 +253,12 @@
 							currentstate = states.Splash;
 							pipes.reset();
 							score = 0;
+							powerspawn = 0;
+							randnum = 0;
+							randnum1 = 0;
+							invincibility = 0;
+							shield = 0; 
+							time = 0;
 						}
 					}
 					break;
@@ -218,7 +278,7 @@
 				height = 480;
 				canvas.style.border = "1px solid #000";
 				evt = "mousedown";
-			}
+			};
 
 			document.addEventListener(evt, onpress);
 
@@ -267,18 +327,68 @@
 			if (currentstate === states.Game) {
 				pipes.update();
 			}
-
 			bird.update();
 			
 		}
-
 
 		function render() {
 			ctx.fillRect(0, 0, width, height);
 			s_bg.draw(ctx, 0, height - s_bg.height);
 			s_bg.draw(ctx, s_bg.width, height - s_bg.height);
 			s_moon.draw(ctx, 10, 10);
-			
+
+			if(invincibility === 0){
+				if(shield === 0){
+					if(time === 0){
+						if(powerspawn === 0){
+							if(randnum > 0) { //8
+								randnum1 = randnum;
+								powerspawn = 1;
+							}
+						}
+					}
+				}
+			};
+
+			if(powerspawn === 1) {
+				s_mystery.draw(ctx, ((_x + ((s_pipeSouth.width/2)-s_invincibility.width/2))-2)+160, (powery + (s_pipeSouth.height + 39 - (s_invincibility.height/2)))+2),
+				_x -= 2
+			};
+			if(_x === -110){
+				_x = -200;
+				randnum2 = Math.random();
+
+				if(randnum2 > 0){ //randnum2 < 3.33333
+					invincibility = 1,
+					invpower = 3,
+					invpowermini = 40
+				}
+
+				//if(3.33334 < randnum2 < 6.66666){ //3.33334 < randnum2 < 6.66666
+					//shield = 1,
+					//invpower = 1,
+					//invpowermini = 40
+				//}
+
+				//if(6.66667 < randnum2){
+					//time = 1,
+					//gamespeed = 150
+					//timevar = 0
+				//}
+			}
+			if(invpower === 0){
+				invpowermini -= 1
+			}
+
+			if(timevar === 5){
+				timevar = 0,
+				gamespeed = 100,
+				powerspawn = 0
+			}
+
+			console.log(invincibility, shield, time)
+
+
 			if(score >= 5) {
 				s_bronze.draw(ctx, 25, 28);
 			}
@@ -291,9 +401,32 @@
 
 			pipes.draw(ctx);
 			bird.draw(ctx);
-			
+
 			s_fg.draw(ctx, fgpos, height -s_fg.height);
 			s_fg.draw(ctx, fgpos + s_fg.width, height - s_fg.height);
+
+
+			if(invincibility === 1){
+				if(invpower > 0){
+					s_invincibility.draw(ctx, width-s_invincibility.width, 0)
+				}
+				if(invpower === 0){
+					invincibility = 0
+				}
+			}
+			if(shield === 1){
+				if(invpower > 0){
+					s_shield.draw(ctx, width-invincibility.width, 0)
+				}
+			}
+			if(time === 1){
+				s_time.draw(ctx, width-invincibility.width, 0)
+			}
+			if(currentstate === states.Score){
+				_x = -200;
+				powerspawn = 0
+			};
+
 
 			var width2 = width/2;
 

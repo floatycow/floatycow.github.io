@@ -48,6 +48,11 @@ function initSprites(img) {
 	
 	s_pipeNorth = new Sprite(img, 251, 0, 26, 200);
 	s_pipeSouth = new Sprite(img, 277, 0, 26, 200);
+
+	s_mystery = new Sprite(img, 220, 114, 15, 15); //440, 228
+	s_invincibility = new Sprite(img, 146, 162, 15, 15); //292, 324
+	s_shield = new Sprite(img, 161, 162, 15, 15); //322, 324
+	s_time = new Sprite(img, 176, 162, 15, 15); //352, 324
 	
 	s_text = {
 		FlappyBird: new Sprite(img, 59, 114, 96, 22),
