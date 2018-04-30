@@ -26,6 +26,7 @@
 <body>
 		<script>
 
+
 		var
 
 		canvas,
@@ -243,6 +244,7 @@
 						invincibility = 0;
 						shield = 0; 
 						time = 0;
+						gamespeed = 100;
 					}
 					if (score >= 5) {
 						score -= 5;
@@ -259,6 +261,7 @@
 							invincibility = 0;
 							shield = 0; 
 							time = 0;
+							gamespeed = 100;
 						}
 					}
 					break;
@@ -341,7 +344,7 @@
 				if(shield === 0){
 					if(time === 0){
 						if(powerspawn === 0){
-							if(randnum > 0) { //8
+							if(randnum > 8) { //8
 								randnum1 = randnum;
 								powerspawn = 1;
 							}
@@ -349,32 +352,32 @@
 					}
 				}
 			};
-
 			if(powerspawn === 1) {
 				s_mystery.draw(ctx, ((_x + ((s_pipeSouth.width/2)-s_invincibility.width/2))-2)+160, (powery + (s_pipeSouth.height + 39 - (s_invincibility.height/2)))+2),
 				_x -= 2
 			};
+			console.log(_x, powerspawn)
 			if(_x === -110){
 				_x = -200;
-				randnum2 = Math.random();
+				randnum2 = Math.random()*10;
 
-				if(randnum2 > 0){ //randnum2 < 3.33333
+				if(randnum2 < 3.33333){ //randnum2 < 3.33333
 					invincibility = 1,
 					invpower = 3,
 					invpowermini = 40
 				}
 
-				//if(3.33334 < randnum2 < 6.66666){ //3.33334 < randnum2 < 6.66666
-					//shield = 1,
-					//invpower = 1,
-					//invpowermini = 40
-				//}
+				if(3.33334 < randnum2 < 6.66666){ //3.33334 < randnum2 < 6.66666
+					shield = 1,
+					invpower = 1,
+					invpowermini = 40
+				}
 
-				//if(6.66667 < randnum2){
-					//time = 1,
-					//gamespeed = 150
-					//timevar = 0
-				//}
+				if(6.66667 < randnum2){ //6.66667 < randnum2
+					time = 1,
+					gamespeed = 150
+					timevar = 0
+				}
 			}
 			if(invpower === 0){
 				invpowermini -= 1
@@ -385,8 +388,6 @@
 				gamespeed = 100,
 				powerspawn = 0
 			}
-
-			console.log(invincibility, shield, time)
 
 
 			if(score >= 5) {
@@ -413,15 +414,18 @@
 				if(invpower === 0){
 					invincibility = 0
 				}
-			}
+			};
+
 			if(shield === 1){
 				if(invpower > 0){
-					s_shield.draw(ctx, width-invincibility.width, 0)
+				s_shield.draw(ctx, width-s_invincibility.width, 0)
 				}
-			}
+			};
+
 			if(time === 1){
 				s_time.draw(ctx, width-invincibility.width, 0)
-			}
+			};
+
 			if(currentstate === states.Score){
 				_x = -200;
 				powerspawn = 0
